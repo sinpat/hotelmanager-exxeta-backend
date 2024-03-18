@@ -19,17 +19,6 @@ class SecurityConfig {
                     .build()
 }
 
-// @Bean
-// fun populateRoomDB(roomRepository: RoomRepository) = CommandLineRunner { _ ->
-//     roomRepository.saveAll(
-//             listOf(
-//                     Room(1, "Double Room", true),
-//                     Room(2, "Single Room", true),
-//                     Room(3, "Suite", false)
-//             )
-//     )
-// }
-
 @SpringBootApplication class HotelmanagerApplication
 
 fun main(args: Array<String>) {
