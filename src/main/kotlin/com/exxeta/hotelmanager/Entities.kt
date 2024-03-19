@@ -39,5 +39,5 @@ class Booking(
         @Column(nullable = false) val guestName: String,
         @Column(nullable = false) @Temporal(TemporalType.DATE) val startDate: LocalDate,
         @Column(nullable = false) @Temporal(TemporalType.DATE) val endDate: LocalDate,
-        @ManyToOne @JoinColumn(name = "roomNumber") @JsonBackReference val room: Room,
+        @ManyToOne @JoinColumn(name = "roomNumber") @JsonBackReference val room: Room? = null,
 )
