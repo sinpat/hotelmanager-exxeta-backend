@@ -18,8 +18,9 @@ class RoomController(private val roomService: RoomService) {
     fun getRooms(
             @RequestParam(required = false) roomType: RoomType?,
             @RequestParam(required = false) hasMinibar: Boolean?,
+            @RequestParam(required = false) isVacant: Boolean?
     ): List<RoomDTO> {
-        return roomService.getRooms(roomType, hasMinibar)
+        return roomService.getRooms(RoomFilter(roomType, hasMinibar, isVacant))
     }
 
     @GetMapping("/{id}")

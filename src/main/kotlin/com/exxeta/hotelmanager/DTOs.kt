@@ -11,7 +11,7 @@ data class RoomDTO(
                 bookings.find {
                     !it.startDate.isAfter(LocalDate.now()) && !it.endDate.isBefore(LocalDate.now())
                 },
-        val vacant: Boolean = currentBooking == null
+        val isVacant: Boolean = currentBooking == null
 ) {
     constructor(room: Room) : this(room.roomNumber, room.roomType, room.hasMinibar, room.bookings)
 }

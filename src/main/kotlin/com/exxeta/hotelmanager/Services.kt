@@ -2,6 +2,14 @@ package com.exxeta.hotelmanager
 
 import org.springframework.stereotype.Service
 
+data class RoomFilter(val roomType: RoomType?, val hasMinibar: Boolean?, val isVacant: Boolean?) {
+    fun matches(room: RoomDTO): Boolean {
+        return (roomType == null || room.roomType == roomType) &&
+                (hasMinibar == null || room.hasMinibar == hasMinibar) &&
+                (isVacant == null || room.isVacant == isVacant)
+    }
+}
+
 class RoomNotFoundException : RuntimeException {
     constructor(id: Long)
 }
@@ -19,14 +27,8 @@ class RoomNotFoundException : RuntimeException {
 @Service
 class RoomService(private val roomRepository: RoomRepository) {
 
-    fun getRooms(roomType: RoomType?, hasMinibar: Boolean?): List<RoomDTO> {
-        return roomRepository
-                .findAll()
-                .filter { room ->
-                    (roomType == null || room.roomType == roomType) &&
-                            (hasMinibar == null || room.hasMinibar == hasMinibar)
-                }
-                .map { RoomDTO(it) }
+    fun getRooms(filter: RoomFilter): List<RoomDTO> {
+        return roomRepository.findAll().map { RoomDTO(it) }.filter { filter.matches(it) }
     }
 
     fun getRoom(id: Long): RoomDTO {
