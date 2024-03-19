@@ -18,12 +18,12 @@ class RoomController(private val roomService: RoomService) {
     fun getRooms(
             @RequestParam(required = false) roomType: RoomType?,
             @RequestParam(required = false) hasMinibar: Boolean?,
-    ): List<Room> {
+    ): List<RoomDTO> {
         return roomService.getRooms(roomType, hasMinibar)
     }
 
     @GetMapping("/{id}")
-    fun getRoom(@PathVariable id: Long): Room {
+    fun getRoom(@PathVariable id: Long): RoomDTO {
         return roomService.getRoom(id)
     }
 

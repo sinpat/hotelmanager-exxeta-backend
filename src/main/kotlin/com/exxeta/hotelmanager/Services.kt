@@ -19,15 +19,19 @@ class RoomNotFoundException : RuntimeException {
 @Service
 class RoomService(private val roomRepository: RoomRepository) {
 
-    fun getRooms(roomType: RoomType?, hasMinibar: Boolean?): List<Room> {
-        return roomRepository.findAll().filter { room ->
-            (roomType == null || room.roomType == roomType) &&
-                    (hasMinibar == null || room.hasMinibar == hasMinibar)
-        }
+    fun getRooms(roomType: RoomType?, hasMinibar: Boolean?): List<RoomDTO> {
+        return roomRepository
+                .findAll()
+                .filter { room ->
+                    (roomType == null || room.roomType == roomType) &&
+                            (hasMinibar == null || room.hasMinibar == hasMinibar)
+                }
+                .map { RoomDTO(it) }
     }
 
-    fun getRoom(id: Long): Room {
-        return roomRepository.findById(id).orElseThrow { throw RoomNotFoundException(id) }
+    fun getRoom(id: Long): RoomDTO {
+        val room = roomRepository.findById(id).orElseThrow { throw RoomNotFoundException(id) }
+        return RoomDTO(room)
     }
 
     fun addRoom(room: Room): Room {
