@@ -1,0 +1,32 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+// Ref: posts.user_id > users.id // many-to-one
+
+// Ref: users.id < follows.following_user_id
+
+// Ref: users.id < follows.followed_user_id
+
+Table "room" {
+  "room_number" int8 [not null]
+  "room_type" varchar(255) [not null]
+  "has_minibar" bool [not null]
+
+Indexes {
+  room_number [pk, name: "room_pkey"]
+}
+}
+
+Table "booking" {
+  "booking_reference" uuid [not null]
+  "room_number" int8
+  "end_date" date [not null]
+  "start_date" date [not null]
+  "guest_name" varchar(255) [not null]
+
+Indexes {
+  booking_reference [pk, name: "booking_pkey"]
+}
+}
+
+Ref "fkjda5mu13yg7tp78q7256v8nc1":"room"."room_number" < "booking"."room_number"
