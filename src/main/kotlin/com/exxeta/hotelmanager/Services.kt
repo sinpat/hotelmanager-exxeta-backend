@@ -10,20 +10,6 @@ data class RoomFilter(val roomType: RoomType?, val hasMinibar: Boolean?, val isV
     }
 }
 
-class RoomNotFoundException : RuntimeException {
-    constructor(id: Long)
-}
-
-// @ControllerAdvice
-// class RoomNotFoundAdvice {
-//     @ResponseBody
-//     @ExceptionHandler(RoomNotFoundException::class)
-//     @ResponseStatus(HttpStatus.NOT_FOUND)
-//     fun roomNotFoundHandler(ex: RoomNotFoundException): String {
-//         return ex.message!!
-//     }
-// }
-
 @Service
 class RoomService(private val roomRepository: RoomRepository) {
 
