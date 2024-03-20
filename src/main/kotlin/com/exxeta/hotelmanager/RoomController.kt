@@ -1,5 +1,7 @@
 package com.exxeta.hotelmanager
 
+import org.springframework.hateoas.EntityModel
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -24,8 +26,14 @@ class RoomController(private val roomService: RoomService) {
     }
 
     @GetMapping("/{id}")
-    fun getRoom(@PathVariable id: Long): RoomDTO {
-        return roomService.getRoom(id)
+    fun getRoom(@PathVariable id: Long): EntityModel<RoomDTO> {
+        val entity =
+                roomService
+                        .getRoom(id)
+                        .add(linkTo(methodOn(RoomController::class.java).getRoom(id)).withSelfRel())
+        // .add(linkTo(methodOn(RoomController::class.java).deleteRoom(id)).withRel("delete"))
+
+        return EntityModel.of(entity)
     }
 
     @PostMapping("")
