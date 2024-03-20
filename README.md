@@ -24,3 +24,10 @@ We have two entities "Room" and "Booking", where one room may have many bookings
 These two entities are translated to tables in the PostgreSQL database.
 
 ![Visualization of the DB-schma with DBML](./doc/db_schema.png)
+
+### Web API
+When the application is running, the OpenAPI documentation integrated with Swagger UI is available at 
+
+`<HOST>:<PORT>/swagger-ui/index.html`
+
+which is usually http://localhost:8080/swagger-ui/index.html for development purposes.
